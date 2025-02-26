@@ -44,7 +44,7 @@ export default function Hero() {
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
             <img
-              src="public\Hero_drink.png"
+              src="/Hero_drink.png"
               alt="Transparent Lemonade Pitcher Clipart - Purple Rain Cocktail Rezept, HD Png Download@kindpng.com"
             />
           </div>
