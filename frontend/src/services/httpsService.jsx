@@ -14,6 +14,11 @@ class HttpService {
     if (!this.service) {
       throw new Error("Axios instance is not initialized!");
     }
+    const token = localStorage.getItem("token");
+    if (token) {
+      console.log("token", token);
+    }
+
     return this.service.request(config);
   };
 

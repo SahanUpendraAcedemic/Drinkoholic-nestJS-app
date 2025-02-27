@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import CartModal from "../model/CartModel";
 import FavoritesModal from "../model/FavoriteModel";
@@ -7,6 +7,16 @@ import { useDrinkContext } from "../context/DrinkContext";
 
 export default function Header() {
   const { setIsCartOpen, setIsFavoritesOpen } = useDrinkContext();
+  const user = localStorage.getItem("token");
+  const nav = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    nav("/");
+    user = null;
+  };
+
+  useEffect(() => {}, []);
 
   return (
     <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
@@ -60,6 +70,38 @@ export default function Header() {
                 Catalog
               </Link>
             </li>
+            {user == null ? (
+              <div className="flex space-x-4">
+                <li>
+                  <Link
+                    to="/signin"
+                    className="block py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-amber-700 dark:text-white md:dark:hover:text-amber-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  >
+                    Sign In
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/signup"
+                    className="block py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-amber-700 dark:text-white md:dark:hover:text-amber-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  >
+                    Sign Up
+                  </Link>
+                </li>
+              </div>
+            ) : (
+              <div>
+                <li>
+                  <Link
+                    to="#"
+                    onClick={logout}
+                    className="block py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-amber-700 dark:text-white md:dark:hover:text-amber-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  >
+                    Sign Out
+                  </Link>
+                </li>
+              </div>
+            )}
             <li>
               <button
                 className=" md:p-0 text-gray-900 rounded-full hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-amber-700 dark:text-white md:dark:hover:text-amber-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
