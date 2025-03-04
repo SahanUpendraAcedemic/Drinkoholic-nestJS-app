@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Response } from 'express';
 import * as firebase from 'firebase-admin';
-import * as serviceAccount from './drinkoholic-app-firebase-adminsdk-fbsvc-691b77db6a.json';
+import * as serviceAccount from '../secrets/drinkoholic-app-firebase-adminsdk-fbsvc-691b77db6a.json';
 const firebaseCreds = {
   type: 'service_account',
   project_id: 'drinkoholic-app',
