@@ -1,9 +1,13 @@
+export const baseURL = "http://localhost:3000";
 const URL = {
-  DRINK_BY_ID: "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={id}",
-  ALL_DRINKS: "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=index",
-  RANDOM_DRINK: "https://www.thecocktaildb.com/api/json/v1/1/random.php",
-  SEARCH_DRINK_NAME:
-    "https://www.thecocktaildb.com/api/json/v1/1/search.php?s={search}",
+  DRINK_BY_ID: `${baseURL}/drink/{id}`,
+  ALL_DRINKS: (index) => `${baseURL}/drink/all/${index}`,
+  RANDOM_DRINK: `${baseURL}/drink/random?count=5`,
+  SEARCH_DRINK_NAME: `${baseURL}/drink/search?name=Margarita`,
+
+  //user functions
+  LOGIN: `${baseURL}/user/signin`,
+  SIGNUP: `${baseURL}/user/signup`,
 };
 
 export default URL;

@@ -20,6 +20,7 @@ export default function Mainpage() {
     setError(null); // Clear any previous errors
     try {
       const response = await drinkService.getRandomDrink(5);
+      console.log(response);
       if (Array.isArray(response)) {
         setDrinks(response);
       } else {

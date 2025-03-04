@@ -16,9 +16,10 @@ class HttpService {
     }
     const token = localStorage.getItem("token");
     if (token) {
-      console.log("token", token);
+      config.headers = {
+        Authorization: `Bearer ${token}`,
+      };
     }
-
     return this.service.request(config);
   };
 
@@ -27,14 +28,14 @@ class HttpService {
   };
 
   handleError = (error) => {
-    if (!error.response) {
-      return {
-        data: {
-          message: "Network Error",
-          success: false,
+    if (error.response.status === 401) {
+      toast.error("Please login to continue", {
+        onclose: () => {
+          window.location.href = "/signin";
         },
-      };
+      });
     }
+    return Promise.reject(error);
   };
 }
 

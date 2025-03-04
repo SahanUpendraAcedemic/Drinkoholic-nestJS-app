@@ -3,6 +3,7 @@ import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import userService from "../services/userService";
 
 export default function SignIn() {
   const nav = useNavigate();
@@ -19,6 +20,8 @@ export default function SignIn() {
     const { email, password } = formData;
     try {
       const login = await signInWithEmailAndPassword(auth, email, password);
+      const response = await userService.signIn(login.user);
+      console.log(response);
       localStorage.setItem("token", login.user.accessToken);
       nav("/");
     } catch (error) {

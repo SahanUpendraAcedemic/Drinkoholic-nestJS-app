@@ -2,12 +2,16 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import userService from "../services/userService";
 
 export default function SignUp() {
   const [formData, setFromData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
+    uname: "",
+    dob: "",
+    phone: "",
   });
   const hadleInputChange = (e) => {
     const { id, value } = e.target;
@@ -23,19 +27,58 @@ export default function SignUp() {
     }
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(user);
+      if (user) {
+        const firebaseId = await user.user.uid;
+        const data = { firebaseId, ...formData };
+        console.log(data);
+        const response = await userService.signUp(data);
+        console.log(user);
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="bg-gray-800 overflow-y-scroll scrollbar-hide h-screen text-white flex justify-center items-center">
-      <div className="w-full max-w-md p-10 rounded-lg shadow-md bg-gray-900">
+    <div className="bg-gray-800 overflow-y-scroll scrollbar-hide py-5 text-white flex justify-center items-center">
+      <div className="w-full  max-w-md p-10 rounded-lg shadow-md bg-gray-900">
         <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
           Sign Up
         </h1>
         <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
+          <div className="flex flex-col space-y-1">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              onChange={hadleInputChange}
+              placeholder="Enter name"
+              className="rounded-lg text-black hover:ring-amber-100 focus:ring-2 focus:ring-amber-200"
+              required
+            />
+          </div>
+          <div className="flex flex-col space-y-1">
+            <label htmlFor="phone">Phone</label>
+            <input
+              type="Number"
+              id="phone"
+              onChange={hadleInputChange}
+              placeholder="Enter name"
+              className="rounded-lg text-black hover:ring-amber-100 focus:ring-2 focus:ring-amber-200"
+              required
+            />
+          </div>
+          <div className="flex flex-col space-y-1">
+            <label htmlFor="dob">Date Of Birth</label>
+            <input
+              type="Date"
+              id="dob"
+              onChange={hadleInputChange}
+              placeholder="Enter name"
+              className="rounded-lg text-black hover:ring-amber-100 focus:ring-2 focus:ring-amber-200"
+              required
+            />
+          </div>
           <div className="flex flex-col space-y-1">
             <label htmlFor="email">Email</label>
             <input

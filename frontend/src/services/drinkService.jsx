@@ -16,7 +16,7 @@ class DrinkService extends HttpService {
   getAllDrinks = async (index) => {
     const req = {
       method: "get",
-      url: URL.ALL_DRINKS.replace("index", index),
+      url: URL.ALL_DRINKS(index),
       responseType: "json",
     };
     const response = await this.sendRequest(req);
@@ -30,6 +30,7 @@ class DrinkService extends HttpService {
       url: URL.RANDOM_DRINK,
       responseType: "json",
     };
+    //todo: bring this to the api
     const promises = Array.from({ length: noOfDrinks }, () =>
       this.sendRequest(req),
     );
