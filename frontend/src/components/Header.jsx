@@ -13,7 +13,6 @@ export default function Header() {
   const logout = () => {
     localStorage.removeItem("token");
     nav("/");
-    user = null;
   };
 
   useEffect(() => {}, []);

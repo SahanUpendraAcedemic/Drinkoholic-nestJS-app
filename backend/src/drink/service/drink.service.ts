@@ -17,15 +17,12 @@ export class DrinkService {
 
   async getAllDrinks(index: string) {
     try {
-      const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${index}`;
-      console.log(`Fetching drinks for category: ${index}`);
-
+      const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${index}`;
       const response = await axios.get(url);
 
       if (!response.data.drinks) {
         console.log('No drinks found for this category.');
       }
-      console.log(response.data);
 
       return response.data;
     } catch (error) {
